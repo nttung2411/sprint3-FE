@@ -1,0 +1,70 @@
+<!-- Start Shop Page  -->
+<div class="shop-box-inner">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+        <div class="right-product-box">
+          <div class="product-item-filter row">
+            <div class="col-12 col-sm-8 text-center text-sm-left">
+              <div class="toolbar-sorter-right">
+                <span style="font-size: 20px">Sort by</span>
+                <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD" (change)="getSort($event)">
+                  <option value="nothing">Nothing</option>
+                  <option value="1">Breakfast</option>
+                  <option value="2">Lunch</option>
+                  <option value="3">Dinner</option>
+                  <option value="4">High Price</option>
+                  <option value="5">Low Price</option>
+                  <option value="6">Best Selling</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 text-center text-sm-right">
+              <div class="product-categori">
+                <div class="search-product">
+                    <input class="form-control" placeholder="Search name here..." type="text" style="height: 42px" [(ngModel)]="foodNameToSearch" >
+                    <button type="submit" style="padding-top: 8px" (click)="searchFoodByName()">
+                      <i class="fa fa-search"></i>
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-categorie-box">
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let food of foodsList">
+                    <div class="products-single fix">
+                      <div class="box-img-hover">
+                        <img src="{{food.image}}" class="img-fluid" alt="Image">
+                        <div class="mask-icon">
+                          <ul>
+                            <li>
+                              <a [routerLink]="['/food-detail' , food.foodId]" data-toggle="tooltip" data-placement="right"
+                                 title="View">
+                                <i class="fas fa-eye"></i>
+                              </a>
+                            </li>
+                          </ul>
+                          <a class="cart" href="#">Add to Cart</a>
+                        </div>
+                      </div>
+                      <div class="why-text">
+                        <h4>{{food.foodName}}</h4>
+                        <h5>{{food.price | currency : 'USD'}}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Shop Page -->
+
