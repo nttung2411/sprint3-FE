@@ -78,14 +78,15 @@
             </div>
           </div>
           <hr>
-          <a href="#" class="btn hvr-hover">Review</a>
+          <a href="#commentModal" data-toggle="modal" class="btn hvr-hover" (click)="clearFormComment()">Review</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="voteRate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="voteRate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -97,8 +98,44 @@
       <div class="modal-body" style="text-align: center">
         <h3>Please choose the rate !!!</h3>
         <star-rating value="5" data-target="#voteRate" data-toggle="modal"
-                     totalstars="5" checkedcolor="orange" uncheckedcolor="black" size="40px" readonly="false" (rate)="onRate($event)">
+                     totalstars="5" checkedcolor="orange" uncheckedcolor="black" size="40px" readonly="false"
+                     (rate)="onRate($event)">
         </star-rating>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel2">Feedback for food !!!</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Your feed back is my motivation.</h3>
+        <label>
+          <i class="fa fa-camera-retro fa-2x" aria-hidden="true" title="Upload Image" style="cursor: pointer"></i>
+          <input type="file" hidden (change)="importImage($event)"/>
+        </label>
+        <form [formGroup]="formComment">
+          <textarea style="resize: none" class="form-control" rows="10" id="myTextarea" formControlName="contentComment"></textarea>
+          <div *ngIf="message" style="color: red">{{message}}</div>
+          <span>
+          <i *ngIf="imageComment" class="fa fa-trash delete-icon d-inline" (click)="deleteImage()"
+             style="color: red;cursor: pointer"></i>
+        </span>
+          <img *ngIf="imageComment" [src]="imageComment"
+               style="height: 100px;width: 100px;float: left;margin-top: 5px"/>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float: right;margin-left: 10px;margin-top: 10px">Close</button>
+          <button type="submit" class="btn" style="background: orange;color: white;float: right;margin-top: 10px" (click)="submitComment()">Save
+          </button>
+        </form>
       </div>
     </div>
   </div>

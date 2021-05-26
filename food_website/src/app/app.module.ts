@@ -9,6 +9,10 @@ import {CartModule} from './cart/cart.module';
 import {HttpClientModule} from '@angular/common/http';
 import {MenuModule} from './menu/menu.module';
 import {FoodDetailModule} from './food-detail/food-detail.module';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {LoginModule} from './login/login.module';
 
 
 @NgModule({
@@ -23,7 +27,10 @@ import {FoodDetailModule} from './food-detail/food-detail.module';
     HttpClientModule,
     HeaderFooterModule,
     MenuModule,
+    LoginModule,
     FoodDetailModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

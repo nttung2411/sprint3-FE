@@ -1,0 +1,44 @@
+.opa {
+  transition: 1s ease-in-out;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 !important;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin: 0 !important;
+}
+
+@media only screen and (max-width: 990px) {
+  .res-2 {
+    text-align: center !important;
+  }
+
+  .res-2 img {
+    width: 8% !important;
+    height: 8% !important;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .res-2 img {
+    width: 10% !important;
+    height: 10% !important;
+  }
+}
+
+.link:hover {
+  color: rgb(238, 93, 26) !important;
+}

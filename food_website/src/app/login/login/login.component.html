@@ -1,0 +1,81 @@
+<div class="container-fluid mt-5 mb-5 vh-100">
+  <div class="row">
+    <div class="col-lg-4" style="margin-left: 30%">
+      <div class="card opa">
+        <div class="card-header text-center" style="background: red">
+          <h2 style="color: white">Đăng Nhập</h2>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="account">Account name:</label>
+              <div class="input-group">
+                <input
+                  id="account" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Password:</label>
+              <i class="fas fa-eye position-relative show float-right"
+                 style="cursor:pointer;z-index: 100000; right: 73px; top: 41px;visibility: hidden;"></i>
+              <div class="input-group">
+                <input type="password"
+                       class="form-control password" placeholder="" aria-describedby="helpId">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div  class="invalid-feedback">
+                  <div>
+                    <div class="text-danger">Mật khẩu không
+                      được để trống!
+                    </div>
+                  </div>
+                  <div class="text-danger">Mật khẩu chứa ít nhất 8
+                    kí tự, tối thiểu 1 chữ viết hoa và 1 số!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--            <div class="row mb-2">-->
+            <!--              <div class="col-lg-12">-->
+            <!--                <div class="text-danger" *ngIf="!isCorrect">-->
+            <!--                  Tên đăng nhập hoặc mật khẩu sai!-->
+            <!--                </div>-->
+            <!--                <div class="text-danger" *ngIf="isLocked">-->
+            <!--                  Tài khoản {{accountNameZ}} đã bị khóa!-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <div class="row mb-2 res">
+              <div class="col-lg-6">Don't have an account? <a routerLink="/register"
+                                                          class="text-decoration-none ml-auto">Register</a></div>
+            </div>
+            <button type="submit" class="btn btn-block btn-success">Login
+            </button>
+          </form>
+
+        </div>
+        <div class="card-footer bg-transparent">
+          <div class="row">
+            <div class="col-lg-12">
+              <p class="text-center text-info">
+               Login with:
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 pr-1 pl-1 mt-1">
+              <button class="btn btn-outline-primary btn-block">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
