@@ -13,6 +13,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {LoginModule} from './login/login.module';
+import {RegisterModule} from './register/register.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {LoginModule} from './login/login.module';
     HeaderFooterModule,
     MenuModule,
     LoginModule,
+    RegisterModule,
     FoodDetailModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)

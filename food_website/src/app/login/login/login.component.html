@@ -11,7 +11,7 @@
               <label for="account">Account name:</label>
               <div class="input-group">
                 <input
-                  id="account" class="form-control" placeholder="" aria-describedby="helpId">
+                  id="account" class="form-control" placeholder="" aria-describedby="helpId" [(ngModel)]="accountName" name="accountName">
               </div>
             </div>
             <div class="form-group">
@@ -20,7 +20,7 @@
                  style="cursor:pointer;z-index: 100000; right: 73px; top: 41px;visibility: hidden;"></i>
               <div class="input-group">
                 <input type="password"
-                       class="form-control password" placeholder="" aria-describedby="helpId">
+                       class="form-control password" placeholder="" aria-describedby="helpId" [(ngModel)]="password" name="password">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <i class="fa fa-lock" aria-hidden="true"></i>
@@ -52,7 +52,11 @@
               <div class="col-lg-6">Don't have an account? <a routerLink="/register"
                                                           class="text-decoration-none ml-auto">Register</a></div>
             </div>
-            <button type="submit" class="btn btn-block btn-success">Login
+            <div class="form-group">
+              <input  type="checkbox"  [(ngModel)]="remember" name="remember">
+              <label  class="ml-1">Remember me !!</label>
+            </div>
+            <button type="submit" class="btn btn-block btn-success" (click)="login()">Login
             </button>
           </form>
 

@@ -1,0 +1,247 @@
+<div class="container-fluid mt-5 mb-5">
+  <div class="row">
+    <div class="col-lg-5" style="margin-left: 30%">
+      <form [formGroup]="formRegister" (ngSubmit)="submitForm()">
+        <div class="card opa">
+          <div class="card-header bg-transparent text-center">
+            <h2>Register New Account</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-12 text-center">
+                <input accept=".jpg,.png" id="avatar" type="file" hidden (change)="importImage($event)">
+                <div class="text-center d-inline-block avatar">
+                  <img *ngIf="!imageShowScreen" id="avt" style="border-radius: 50%" width="90px" height="90px"
+                       alt="" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png">
+                  <img *ngIf="imageShowScreen" id="avt2" style="border-radius: 50%" width="90px" height="90px"
+                       alt="" src="{{imageShowScreen}}">
+                  <i onclick="document.getElementById('avatar').click()"
+                     title="Click to change avatar"
+                     class="fa fa-camera position-relative right-50"></i>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="accountName">Account: <span class="text-danger">(*)</span></label>
+                <div class="input-group">
+                  <input id="accountName"
+                         class="form-control" formControlName="accountName">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="duplicateAccountName" class="text-danger">
+                  {{duplicateAccountName}}
+                </div>
+                <div *ngIf="formRegister.controls.accountName.errors?.required
+                   && formRegister.controls.accountName?.touched" class="text-danger">
+                  Please input account name !!!
+                </div>
+                <div *ngIf="formRegister.controls.accountName.errors?.pattern
+                   && formRegister.controls.accountName?.touched" class="text-danger">
+                  Do not input any special signs and length is 6-20.
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="fullname">User name: <span class="text-danger">(*)</span></label>
+                <div class="input-group">
+                  <input id="fullname"
+                         class="form-control" formControlName="userName">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="formRegister.controls.userName.errors?.required
+                   && formRegister.controls.userName?.touched" class="text-danger">
+                  Please input your name !!!
+                </div>
+                <div *ngIf="formRegister.controls.userName.errors?.pattern
+                   && formRegister.controls.userName?.touched" class="text-danger">
+                  Do not input any special signs and length is 6-100.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="password">Password <span class="text-danger">(*)</span></label>
+                <i class="fas fa-eye position-relative show float-right"
+                   style="cursor:pointer;z-index: 100000; right: 73px; top: 41px;visibility: hidden;"></i>
+                <div class="input-group">
+                  <input id="password" class="form-control password" name="password"
+                         formControlName="password" type="password" (keyup)="checkPassword()">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="formRegister.controls.password.errors?.required
+                   && formRegister.controls.password?.touched" class="text-danger">
+                  Please input your password !!!
+                </div>
+                <div *ngIf="formRegister.controls.password.errors?.minlength
+                   && formRegister.controls.password?.touched" class="text-danger">
+                  Min length is 6 characters !!!
+                </div>
+                <div *ngIf="formRegister.controls.password.errors?.maxlength
+                   && formRegister.controls.password?.touched" class="text-danger">
+                  Max length is 30 characters !!!
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="confirmPassword">Confirm password <span
+                  class="text-danger">(*)</span></label>
+                <i class="fas fa-eye position-relative show float-right"
+                   style="cursor:pointer;z-index: 100000; right: 73px; top: 41px;visibility: hidden;"></i>
+                <div class="input-group">
+                  <input id="confirmPassword"
+                         type="password" class="form-control password" formControlName="confirmPassword"
+                         (keyup)="checkConfirmPassword()">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="checkPasswordMessage" class="text-danger">
+                  {{checkPasswordMessage}}
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="email">Email <span class="text-danger">(*)</span></label>
+                <div class="input-group">
+                  <input id="email"
+                         class="form-control" formControlName="email">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="formRegister.controls.email.errors?.minlength
+                   && formRegister.controls.email?.touched" class="text-danger">
+                  Min length is 6 characters !!!
+                </div>
+                <div *ngIf="formRegister.controls.email.errors?.email
+                   && formRegister.controls.email?.touched" class="text-danger">
+                  Email invalid !!!
+                </div>
+                <div *ngIf="formRegister.controls.email.errors?.maxlength
+                   && formRegister.controls.email?.touched" class="text-danger">
+                  Max length is 30 characters !!!
+                </div>
+                <div *ngIf="formRegister.controls.email.errors?.required
+                   && formRegister.controls.email?.touched" class="text-danger">
+                  Please input your email !!!
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="identity">Identity <span class="text-danger">(*)</span></label>
+                <div class="input-group">
+                  <input formControlName="identity" id="identity"
+                         type="text" class="form-control">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="far fa-address-card" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="formRegister.controls.identity.errors?.required
+                   && formRegister.controls.identity?.touched" class="text-danger">
+                  Please input your identity !!!
+                </div>
+                <div *ngIf="formRegister.controls.identity.errors?.pattern
+                   && formRegister.controls.identity?.touched" class="text-danger">
+                  Identity must be has 9 numbers !!!
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="date">Birthday <span class="text-danger">(*)</span></label>
+                <div class="input-group">
+                  <input
+                    formControlName="birthday" id="date"
+                    class="form-control" type="date">
+                </div>
+                <div
+                  *ngIf="formRegister.controls.birthday.errors?.birthdayValidate
+                   && formRegister.controls.birthday?.touched" class="text-danger">
+                  Age is must be > 16 and < 100 !!!
+                </div>
+                <div
+                  *ngIf="formRegister.controls.birthday.errors?.required
+                   && formRegister.controls.birthday?.touched" class="text-danger">
+                  Please input birthday !!!
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="phone">Phone <span class="text-danger">(*)</span></label>
+                <div class="input-group">
+                  <input formControlName="phone" id="phone" type="text"
+                         class="form-control">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-phone" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  *ngIf="formRegister.controls.phone.errors?.required
+                   && formRegister.controls.phone?.touched" class="text-danger">
+                  Please input your phone !!!
+                </div>
+                <div
+                  *ngIf="formRegister.controls.phone.errors?.pattern
+                   && formRegister.controls.phone?.touched" class="text-danger">
+                  Phone is must be begin '0' or '84' and has 9 numbers after.
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-12" style="padding: 0">
+              <label for="address">Address <span class="text-danger">(*)</span></label>
+              <div class="input-group">
+                <input formControlName="address" id="address" type="text"
+                       class="form-control">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngIf="formRegister.controls.address.errors?.required
+                   && formRegister.controls.address?.touched" class="text-danger">
+                Please input your address !!!
+              </div>
+              <div
+                *ngIf="formRegister.controls.address.errors?.pattern
+                   && formRegister.controls.address?.touched" class="text-danger">
+                Please do not input any special signs and length is 6-100.
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent">
+            <div class="row">
+              <div class="col-lg-6 pl-1 pr-1 mb-1">
+                <button type="submit" class="btn btn-success btn-block" [disabled]="!formRegister.valid || this.checkPasswordMessage">Create
+                </button>
+              </div>
+              <div class="col-lg-6 pl-1 pr-1 mb-1">
+                <a routerLink="/login" class="btn btn-secondary btn-block" style="color: white">Back to login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+</div>
