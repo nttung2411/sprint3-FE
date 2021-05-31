@@ -15,125 +15,125 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let orderFood of orderFoodList , let i = index">
               <td class="thumbnail-img">
                 <a href="#">
-                  <img class="img-fluid" src="./assets/images/img-pro-01.jpg" alt=""/>
+                  <img class="img-fluid" src="{{orderFood.food.image}}" alt=""/>
                 </a>
               </td>
               <td class="name-pr">
                 <a href="#">
-                  Lorem ipsum dolor sit amet
+                  {{orderFood.food.foodName}}
                 </a>
               </td>
               <td class="price-pr">
-                <p>$ 80.0</p>
+                <p>{{orderFood.food.price | currency: 'USD'}}</p>
               </td>
-              <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1"
-                                              class="c-input-text qty text"></td>
+              <td class="quantity-box">
+                <input type="number" size="4" name="quantity" id="idToChange{{i}}"
+                       value="{{orderFood.quantity}}" min="1" max="50" step="1" (change)="changeQuantity(i)">
+              </td>
               <td class="total-pr">
-                <p>$ 80.0</p>
+                <p>{{orderFood.food.price * orderFood.quantity | currency}}</p>
               </td>
-              <td class="remove-pr">
-                <a href="#">
-                  <i class="fas fa-times"></i>
+              <th>
+                <a href="#removeOrder" (click)="sendFoodToRemove(orderFood)" data-toggle="modal"
+                   style="margin-left: 15%">
+                  <i class="fas fa-times-circle fa-2x" style="color: red"></i>
                 </a>
-              </td>
-            </tr>
-            <tr>
-              <td class="thumbnail-img">
-                <a href="#">
-                  <img class="img-fluid" src="./assets/images/img-pro-02.jpg" alt=""/>
-                </a>
-              </td>
-              <td class="name-pr">
-                <a href="#">
-                  Lorem ipsum dolor sit amet
-                </a>
-              </td>
-              <td class="price-pr">
-                <p>$ 60.0</p>
-              </td>
-              <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1"
-                                              class="c-input-text qty text"></td>
-              <td class="total-pr">
-                <p>$ 80.0</p>
-              </td>
-              <td class="remove-pr">
-                <a href="#">
-                  <i class="fas fa-times"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td class="thumbnail-img">
-                <a href="#">
-                  <img class="img-fluid" src="./assets/images/img-pro-03.jpg" alt=""/>
-                </a>
-              </td>
-              <td class="name-pr">
-                <a href="#">
-                  Lorem ipsum dolor sit amet
-                </a>
-              </td>
-              <td class="price-pr">
-                <p>$ 30.0</p>
-              </td>
-              <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1"
-                                              class="c-input-text qty text"></td>
-              <td class="total-pr">
-                <p>$ 80.0</p>
-              </td>
-              <td class="remove-pr">
-                <a href="#">
-                  <i class="fas fa-times"></i>
-                </a>
-              </td>
+              </th>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-
-
     <div class="row my-5">
       <div class="col-lg-8 col-sm-12"></div>
       <div class="col-lg-4 col-sm-12">
         <div class="order-box">
-          <h3>Order summary</h3>
-          <div class="d-flex">
-            <h4>Sub Total</h4>
-            <div class="ml-auto font-weight-bold"> $ 130</div>
-          </div>
-          <div class="d-flex">
-            <h4>Discount</h4>
-            <div class="ml-auto font-weight-bold"> $ 40</div>
-          </div>
-          <hr class="my-1">
-          <div class="d-flex">
-            <h4>Coupon Discount</h4>
-            <div class="ml-auto font-weight-bold"> $ 10</div>
-          </div>
-          <div class="d-flex">
-            <h4>Tax</h4>
-            <div class="ml-auto font-weight-bold"> $ 2</div>
-          </div>
-          <div class="d-flex">
-            <h4>Shipping Cost</h4>
-            <div class="ml-auto font-weight-bold"> Free</div>
-          </div>
-          <hr>
           <div class="d-flex gr-total">
             <h5 style="color: orange !important;">Grand Total</h5>
-            <div class="ml-auto h5"> $ 388</div>
+            <div class="ml-auto h5">{{grandTotal | currency : 'USD'}}</div>
           </div>
           <hr>
         </div>
       </div>
-      <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover"
+      <div class="col-12 d-flex shopping-box"><a href="#Order" data-toggle="modal" class="ml-auto btn hvr-hover"
                                                  style="background: orange !important;">Order</a></div>
     </div>
+  </div>
+</div>
 
+
+<div class="modal fade" id="removeOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remove Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to remove Order?
+        <h4 style="color: orange">You can add food to cart again from screen menu !!!</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="removeOrder()">Remove</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div role="tabpanel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" style="margin-right: 3px"><a href="#uploadTab" class="btn btn-primary"
+                                                      aria-controls="uploadTab" role="tab" data-toggle="tab">Cash Payment</a>
+            </li>
+            <li role="presentation"><a href="#browseTab" class="btn btn-primary" aria-controls="browseTab" role="tab"
+                                       data-toggle="tab">Paypal</a>
+
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="uploadTab">
+              <form>
+                <label>Recipient's name(<span style="color: red">*</span>):</label>
+                <input type="text" class="form-control">
+                <label>Phone(<span style="color: red">*</span>):</label>
+                <input type="text" class="form-control">
+                <label>Address(<span style="color: red">Arround Da Nang city</span>):</label>
+                <input type="text" class="form-control">
+                <label>Your note:</label>
+                <textarea style="resize: none" class="form-control" rows="5"></textarea>
+                <h3 style="float: left;margin-top: 3%;color: orange">Total: {{grandTotal| currency : 'USD'}}</h3>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        style="float: right;margin-left: 10px;margin-top: 10px" id="close2">Close
+                </button>
+                <button type="submit" class="btn" style="background: orange;color: white;float: right;margin-top: 10px">
+                  Save
+                </button>
+              </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="browseTab">browseTab</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

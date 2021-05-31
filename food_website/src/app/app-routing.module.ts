@@ -11,6 +11,7 @@ import {RegisterComponent} from './register/register/register.component';
 
 const routes: Routes = [
   {path: '' , component: HomePageComponent},
+  {path: 'home' , component: HomePageComponent},
   {path: 'cart' , component: CartComponent , canActivate: [AuthGuardService]},
   {path: 'menu' , component: MenuComponent},
   {path: 'food-detail/:id' , component: FoodDetailComponent},

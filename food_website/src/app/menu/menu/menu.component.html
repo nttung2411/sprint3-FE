@@ -48,11 +48,13 @@
                               </a>
                             </li>
                           </ul>
-                          <a class="cart" href="#">Add to Cart</a>
+                          <a *ngIf="!isLogged" class="cart" routerLink="/login">Add to Cart</a>
+                          <a *ngIf="isLogged" class="cart" (click)="addToCart(food)" style="cursor: pointer">Add to Cart</a>
                         </div>
                       </div>
                       <div class="why-text">
                         <h4>{{food.foodName}}</h4>
+                        <h6>Category: {{food.category.categoryName}}</h6>
                         <h5>{{food.price | currency : 'USD'}}</h5>
                       </div>
                     </div>

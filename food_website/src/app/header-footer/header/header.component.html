@@ -16,52 +16,16 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-          <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">Menu</a></li>
-          <li class="nav-item"><a class="nav-link" href="gallery.html">Login</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" routerLink="/home">Home</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" routerLink="/menu">Menu</a></li>
+          <li class="nav-item" *ngIf="!isLogged"><a class="nav-link" routerLink="/login">Login</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']"
+              *ngIf="isLogged"><a class="nav-link" routerLink="/cart">
+            <i class="fa fa-shopping-bag"></i><sup style="color: white">{{lengthOfCart.lengthOfCart}}</sup> My Cart</a></li>
+          <li class="nav-item" *ngIf="isLogged"><a class="nav-link" (click)="logout()" style="cursor: pointer">Logout</a></li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
-
-      <!-- Start Atribute Navigation -->
-      <div class="attr-nav">
-        <ul>
-          <li class="side-menu">
-            <a href="#">
-              <i class="fa fa-shopping-bag"></i>
-              <span class="badge" style="color: red;font-size: 10px">3</span>
-              <p>My Cart</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- End Atribute Navigation -->
-    </div>
-    <div class="side">
-      <a href="#" class="close-side"><i class="fa fa-times"></i></a>
-      <li class="cart-box">
-        <ul class="cart-list">
-          <li>
-            <a href="#" class="photo"><img src="./assets/images/img-pro-01.jpg" class="cart-thumb" alt=""/></a>
-            <h6><a href="#">Delica omtantur </a></h6>
-            <p>1x - <span class="price">$80.00</span></p>
-          </li>
-          <li>
-            <a href="#" class="photo"><img src="./assets/images/img-pro-02.jpg" class="cart-thumb" alt=""/></a>
-            <h6><a href="#">Omnes ocurreret</a></h6>
-            <p>1x - <span class="price">$60.00</span></p>
-          </li>
-          <li>
-            <a href="#" class="photo"><img src="./assets/images/img-pro-03.jpg" class="cart-thumb" alt=""/></a>
-            <h6><a href="#">Agam facilisis</a></h6>
-            <p>1x - <span class="price">$40.00</span></p>
-          </li>
-          <li class="total">
-            <a routerLink="/cart" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-            <span class="float-right"><strong>Total</strong>: $180.00</span>
-          </li>
-        </ul>
-      </li>
     </div>
   </nav>
   <!-- End Navigation -->

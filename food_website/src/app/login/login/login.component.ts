@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authenticationService.sendLogin(new JwtRequest(this.accountName, this.password)).subscribe(data => {
+      console.log(data);
       if (data.jwtToken === 'INVALID_CREDENTIALS') {
         this.isCorrect = false;
       } else {

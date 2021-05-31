@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {RegisterService} from '../../services/register.service';
+import {AccountService} from '../../services/account.service';
 import {User} from '../../models/User';
 import {Account} from '../../models/Account';
 import {birthdayValidate} from '../../custome-validate/birthday_validate';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {MatDialog} from '@angular/material';
+import {DialogRegisterComponent} from '../dialog-register/dialog-register.component';
 
 @Component({
   selector: 'app-register',
@@ -27,8 +29,9 @@ export class RegisterComponent implements OnInit {
   messageImage: string;
 
   constructor(private formBuilder: FormBuilder,
-              private registerService: RegisterService,
-              private storage: AngularFireStorage) {
+              private accountService: AccountService,
+              private storage: AngularFireStorage,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -45,12 +48,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  async submitForm() {
-
-    if (this.imageToUpFireBase) {
-      await this.addImageToFireBase();
-    }
-
+  submitForm() {
     const newUser: User = {
       userName: this.formRegister.controls.userName.value,
       email: this.formRegister.controls.email.value,
@@ -67,27 +65,33 @@ export class RegisterComponent implements OnInit {
       user: newUser
     };
 
-    if (this.imageToSave) {
-      newUser.avatar = this.imageToSave;
-    } else {
-      newUser.avatar = this.imageDefault;
-    }
-
-    this.registerService.checkDuplicate(newAccount.accountName, newAccount.user.phone, newAccount.user.email, newAccount.user.identity)
-      .subscribe(data => {
+    this.accountService.checkDuplicate(newAccount.accountName, newAccount.user.phone, newAccount.user.email, newAccount.user.identity)
+      .subscribe(async data => {
+        console.log(data);
         if (data == null) {
-          this.registerService.saveAccount(newAccount).subscribe();
+          this.dialog.open(DialogRegisterComponent, {
+            width: '500px',
+            height: '250px',
+            disableClose: true
+          });
+          if (this.imageToUpFireBase[0]) {
+            await this.addImageToFireBase();
+            newAccount.user.avatar = this.imageToSave;
+          } else {
+            newAccount.user.avatar = this.imageDefault;
+          }
+          this.accountService.saveAccount(newAccount).subscribe();
         } else {
-          if (data.accountName) {
+          if (data.accountName === this.formRegister.controls.accountName.value) {
             this.duplicateAccountName = 'Account is exits';
           }
-          if (data.phone) {
+          if (data.phone === this.formRegister.controls.phone.value) {
             this.duplicatePhone = 'Phone is exits';
           }
-          if (data.email) {
+          if (data.email === this.formRegister.controls.email.value) {
             this.duplicateEmail = 'Email is exits';
           }
-          if (data.identity) {
+          if (data.identity === this.formRegister.controls.identity.value) {
             this.duplicateIdentity = 'Identity is exits';
           }
         }
@@ -170,4 +174,5 @@ export class RegisterComponent implements OnInit {
       });
     });
   }
+
 }
